@@ -1,0 +1,17 @@
+{
+    "Clients": "לקוחות",
+    "Client": "לקוח",
+    "client details": "פרטי לקוח",
+    "representative details": "פרטי נציג",
+    "grave details": "פרטי קבר",
+    "identity": "תעודת זהות",
+    "name": "שם",
+    "nation": "לאום",
+    "religion": "דת",
+    "phone": "טלפון",
+    "death date": "תאריך פטירה",
+    "burial city": "עיר קבורה",
+    "burial type": "סוג קבורה",
+    "cemetery": "בית עלמין",
+    "The :attribute is invalid.": ":attribute לא חוקי"
+}
