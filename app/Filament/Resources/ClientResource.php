@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ClientResource\Pages;
 use App\Filament\Resources\ClientResource\RelationManagers;
 use App\Models\Client;
+use App\Models\Grave;
+use App\Rules\Identity;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -46,7 +48,7 @@ class ClientResource extends Resource
                                     TextInput::make('identity')
                                         ->label(__('identity'))
                                         ->unique(ignoreRecord: true)
-                                        // ->rules([new Identity])
+                                        ->rules([new Identity])
                                         ->required()
                                         ->maxLength(9)
                                         ->minLength(7),
@@ -124,7 +126,7 @@ class ClientResource extends Resource
                                     TextInput::make('identity')
                                         ->label(__('identity'))
                                         ->unique(ignoreRecord: true)
-                                        // ->rules([new Identity])
+                                        ->rules([new Identity])
                                         ->maxLength(9)
                                         ->minLength(7),
                                     TextInput::make('city')
