@@ -11,4 +11,13 @@ class Grave extends Model
     {
         return $this->belongsTo(Client::class);
     }
+
+    protected $fillable = [
+        'cemetery',
+        'plot',
+        'block',
+        'city',
+        'chevra_kadisha',
+        'price',
+    ];
 }

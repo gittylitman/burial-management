@@ -11,4 +11,13 @@ class Representative extends Model
     {
         return $this->hasMany(Client::class);
     }
+
+    protected $fillable = [
+        'name',
+        'identity',
+        'city',
+        'phone',
+        'email',
+        'relation',
+    ];
 }

@@ -2,7 +2,7 @@
     "Clients": "לקוחות",
     "Client": "לקוח",
     "client details": "פרטי לקוח",
-    "representative details": "פרטי נציג",
+    "representative details (optional)": "פרטי נציג (אופציונלי)",
     "grave details": "פרטי קבר",
     "identity": "תעודת זהות",
     "name": "שם",
@@ -13,5 +13,12 @@
     "burial city": "עיר קבורה",
     "burial type": "סוג קבורה",
     "cemetery": "בית עלמין",
+    "plot": "חלקה",
+    "block": "גוש",
+    "city": "עיר",
+    "chevra kadisha": "חברה קדישא",
+    "price": "מחיר",
+    "email": "אימייל",
+    "relation": "קרבה לנפטר",
     "The :attribute is invalid.": ":attribute לא חוקי"
 }

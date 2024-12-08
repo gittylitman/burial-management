@@ -62,8 +62,13 @@ class ClientResource extends Resource
                                     TextInput::make('religion')
                                         ->label(__('religion'))
                                         ->required(),
+                                    TextInput::make('phone')
+                                        ->label(__('phone'))
+                                        ->tel()
+                                        ->maxLength(10),
                                     DatePicker::make('death_date')
-                                        ->label(__('death date')),
+                                        ->label(__('death date'))
+                                        ->maxDate(now()),
                                     TextInput::make('burial_city')
                                         ->label(__('burial city'))
                                         ->required(),
@@ -73,31 +78,70 @@ class ClientResource extends Resource
                                     TextInput::make('cemetery')
                                         ->label(__('cemetery'))
                                         ->required(),
-                                    TextInput::make('phone')
-                                        ->label(__('phone'))
-                                        ->tel()
-                                        ->maxLength(10)
-                                        ->required(),
                                 ])
-                                ->columns(2)
+                                ->columns(3),
                         ]),
                     Wizard\Step::make('grave_details')
                         ->label(__('grave details'))
+                        ->icon('heroicon-o-building-library')
                         ->schema([   
                             Section::make()
                                 ->relationship('grave')
                                 ->schema([
                                     TextInput::make('cemetery')
-                                    ->label(__('cemetery'))
-                                    ->required(),
+                                        ->label(__('cemetery'))
+                                        // ->default(fn (Client $record) => $record?->cemetery ?? '')
+                                        ->required(),
+                                    TextInput::make('plot')
+                                        ->label(__('plot'))
+                                        ->required(),
+                                    TextInput::make('block')
+                                        ->label(__('block'))
+                                        ->required(),
+                                    TextInput::make('city')
+                                        ->label(__('city'))
+                                        // ->default(fn (Client $record) => $record?->burial_city ?? '')
+                                        ->required(),
+                                    TextInput::make('chevra_kadisha')
+                                        ->label(__('chevra kadisha'))
+                                        ->required(),
+                                    TextInput::make('price')
+                                        ->label(__('price'))
+                                        ->numeric()
+                                        ->required(),
                                 ])
-                                ->columns(2)
+                                ->columns(3),
                         ]),
-                    Wizard\Step::make('Billing')
+                    Wizard\Step::make('representative_details')
+                        ->label(__('representative details (optional)'))
+                        ->icon('heroicon-o-user-circle')
                         ->schema([
-                            // ...
-                        ]),
+                            Section::make()
+                                ->relationship('representative')
+                                ->schema([
+                                    TextInput::make('name')
+                                        ->label(__('name')),
+                                    TextInput::make('identity')
+                                        ->label(__('identity'))
+                                        ->unique(ignoreRecord: true)
+                                        // ->rules([new Identity])
+                                        ->maxLength(9)
+                                        ->minLength(7),
+                                    TextInput::make('city')
+                                        ->label(__('city')),
+                                    TextInput::make('phone')
+                                        ->label(__('phone'))
+                                        ->tel(),
+                                    TextInput::make('email')
+                                        ->label(__('email'))
+                                        ->email(),
+                                    TextInput::make('relation')
+                                        ->label(__('relation')),
+                                ])
+                                ->columns(3),
+                        ]),                        
                 ])
+                ->columnSpanFull()
             ]);
     }
 
