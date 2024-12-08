@@ -8,6 +8,8 @@ use App\Rules\Identity;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Wizard;
@@ -138,10 +140,36 @@ class ClientResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')
+                    ->label(__('name'))
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make(name: 'identity')
+                    ->label(__('identity'))
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make(name: 'phone')
+                    ->label(__('phone'))
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make(name: 'nation')
+                    ->label(__('nation'))
+                    ->sortable(),
+                TextColumn::make(name: 'city')
+                    ->label(__('city'))
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make(name: 'grave.cemetery')
+                    ->label(__('cemetery'))
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('grave.cemetery')
+                    ->label(__('cemetery'))
+                    ->multiple()
+                    //TODO get it from API
+                    ->options([]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
