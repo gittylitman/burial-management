@@ -3,18 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Client extends Model
 {
-    public function grave(): BelongsTo
+    public function grave(): HasOne
     {
-        return $this->belongsTo(Grave::class);
+        return $this->hasOne(Grave::class);
     }
     
-    public function representative(): BelongsTo
+    public function representative(): HasOne
     {
-        return $this->belongsTo(Representative::class);
+        return $this->hasOne(Representative::class);
     }
 
     protected $fillable = [
@@ -28,17 +28,5 @@ class Client extends Model
         'burial_city',
         'burial_type',
         'cemetery',
-        // 'grave.cemetery',
-        // 'grave.plot',
-        // 'grave.block',
-        // 'grave.city',
-        // 'grave.chevra_kadisha',
-        // 'grave.price',
-        // 'name',
-        // 'identity',
-        // 'city',
-        // 'phone',
-        // 'email',
-        // 'relation',
     ];
 }

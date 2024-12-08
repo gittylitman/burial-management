@@ -41,7 +41,7 @@ class ClientResource extends Resource
                 Wizard::make([
                     Wizard\Step::make('client_details')
                         ->label(__('client details'))
-                        ->icon('heroicon-o-user')
+                        ->icon('heroicon-o-user-plus')
                         ->schema([
                             Section::make()
                                 ->schema([
@@ -77,9 +77,6 @@ class ClientResource extends Resource
                                     TextInput::make('burial_type')
                                         ->label(__('burial type'))
                                         ->required(),
-                                    TextInput::make('cemetery')
-                                        ->label(__('cemetery'))
-                                        ->required(),
                                 ])
                                 ->columns(3),
                         ]),
@@ -92,17 +89,12 @@ class ClientResource extends Resource
                                 ->schema([
                                     TextInput::make('cemetery')
                                         ->label(__('cemetery'))
-                                        // ->default(fn (Client $record) => $record?->cemetery ?? '')
                                         ->required(),
                                     TextInput::make('plot')
                                         ->label(__('plot'))
                                         ->required(),
                                     TextInput::make('block')
                                         ->label(__('block'))
-                                        ->required(),
-                                    TextInput::make('city')
-                                        ->label(__('city'))
-                                        // ->default(fn (Client $record) => $record?->burial_city ?? '')
                                         ->required(),
                                     TextInput::make('chevra_kadisha')
                                         ->label(__('chevra kadisha'))
@@ -116,7 +108,7 @@ class ClientResource extends Resource
                         ]),
                     Wizard\Step::make('representative_details')
                         ->label(__('representative details (optional)'))
-                        ->icon('heroicon-o-user-circle')
+                        ->icon('heroicon-o-user')
                         ->schema([
                             Section::make()
                                 ->relationship('representative')

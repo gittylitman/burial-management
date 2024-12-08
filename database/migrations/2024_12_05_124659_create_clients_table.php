@@ -19,10 +19,9 @@ return new class extends Migration
             $table->string('nation');
             $table->string('religion');
             $table->string('phone')->nullable();
-            $table->string('death_date');
+            $table->string('death_date')->nullable();
             $table->string('burial_city');
             $table->string('burial_type');
-            $table->string('cemetery');
             $table->foreignId('grave_id')->constrained('graves')->cascadeOnDelete();
             $table->foreignId('representative_id')->nullable()->constrained('representatives')->cascadeOnDelete();
             $table->timestamps();

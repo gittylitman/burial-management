@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('cemetery');
             $table->string('plot');
             $table->string('block');
-            $table->string('city');
             $table->string('chevra_kadisha');
             $table->string('price');
             $table->timestamps();
