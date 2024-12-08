@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Grave extends Model
 {
-    public function client(): BelongsTo
+    public function clients(): HasOne
     {
-        return $this->belongsTo(Client::class);
+        return $this->hasOne(Client::class, 'grave_id');
     }
 
     protected $fillable = [

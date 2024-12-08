@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Representative extends Model
 {
-    public function client(): HasMany
+    public function clients(): HasMany
     {
-        return $this->hasMany(Client::class);
+        return $this->hasMany(Client::class, 'representative_id');
     }
 
     protected $fillable = [

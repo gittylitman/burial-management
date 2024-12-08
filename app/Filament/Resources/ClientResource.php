@@ -3,17 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ClientResource\Pages;
-use App\Filament\Resources\ClientResource\RelationManagers;
 use App\Models\Client;
-use App\Models\Grave;
 use App\Rules\Identity;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\TextInput;
@@ -41,7 +36,7 @@ class ClientResource extends Resource
                 Wizard::make([
                     Wizard\Step::make('client_details')
                         ->label(__('client details'))
-                        ->icon('heroicon-o-user-plus')
+                        ->icon('heroicon-o-user')
                         ->schema([
                             Section::make()
                                 ->schema([

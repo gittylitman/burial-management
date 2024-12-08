@@ -3,21 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Client extends Model
 {
-    public function grave(): HasOne
+    public function grave(): BelongsTo
     {
-        return $this->hasOne(Grave::class);
+        return $this->belongsTo(Grave::class, 'grave_id');
     }
     
-    public function representative(): HasOne
+    public function representative(): BelongsTo
     {
-        return $this->hasOne(Representative::class);
+        return $this->belongsTo(Representative::class, 'representative_id');
     }
 
     protected $fillable = [
+        'grave_id',
+        'representative_id',
         'identity',
         'name',
         'city',
