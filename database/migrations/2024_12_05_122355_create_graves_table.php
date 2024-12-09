@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('graves', function (Blueprint $table) {
             $table->id();
             $table->string('cemetery');
+            $table->string('burial_type');
             $table->string('plot');
             $table->string('block');
             $table->string('chevra_kadisha');

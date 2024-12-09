@@ -5,16 +5,20 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ClientResource\Pages;
 use App\Models\Client;
 use App\Rules\Identity;
+use App\Services\ConnectGov;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Wizard;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Wizard;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Section;
+use Illuminate\Support\Facades\Cache;
 
 class ClientResource extends Resource
 {
@@ -31,6 +35,7 @@ class ClientResource extends Resource
     {
         return __('Clients');
     }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -68,24 +73,39 @@ class ClientResource extends Resource
                                     DatePicker::make('death_date')
                                         ->label(__('death date'))
                                         ->maxDate(now()),
-                                    TextInput::make('burial_city')
+                                    Select::make('burial_city')
                                         ->label(__('burial city'))
-                                        ->required(),
-                                    TextInput::make('burial_type')
-                                        ->label(__('burial type'))
-                                        ->required(),
+                                        ->live()
+                                        ->reactive()
+                                        ->options(
+                                            fn () => Cache::remember('burial_city', 45 * 60, function () {
+                                                return app(ConnectGov::class)->getCemeteryCities();
+                                            })
+                                        )
+                                        ->required()
+                                        ->afterStateUpdated(function (Get $get) {
+                                            session(['burial_city' => $get('burial_city')]);
+                                        }),
                                 ])
                                 ->columns(3),
                         ]),
                     Wizard\Step::make('grave_details')
                         ->label(__('grave details'))
                         ->icon('heroicon-o-building-library')
-                        ->schema([   
+                        ->schema([
                             Section::make()
                                 ->relationship('grave')
                                 ->schema([
-                                    TextInput::make('cemetery')
+                                    Select::make('cemetery')
                                         ->label(__('cemetery'))
+                                        ->live()
+                                        ->reactive()
+                                        ->options(
+                                            fn () => (app(ConnectGov::class)->getCemeteryByCity(session('burial_city'))) ?? []
+                                        )
+                                        ->required(),
+                                    TextInput::make('burial_type')
+                                        ->label(__('burial type'))
                                         ->required(),
                                     TextInput::make('plot')
                                         ->label(__('plot'))
@@ -130,9 +150,9 @@ class ClientResource extends Resource
                                         ->label(__('relation')),
                                 ])
                                 ->columns(3),
-                        ]),                        
+                        ]),
                 ])
-                ->columnSpanFull()
+                    ->columnSpanFull(),
             ]);
     }
 
