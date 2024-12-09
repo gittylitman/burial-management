@@ -11,6 +11,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
@@ -47,6 +48,12 @@ class ClientResource extends Resource
                         ->schema([
                             Section::make()
                                 ->schema([
+                                    Toggle::make('has_representative')
+                                        ->label(__('Submitted by a representative'))
+                                        ->columnSpanFull()
+                                        ->live()
+                                        ->reactive()
+                                        ->afterStateUpdated(fn ($state) => session(['has_representative' => $state])),
                                     TextInput::make('identity')
                                         ->label(__('identity'))
                                         ->unique(ignoreRecord: true)
@@ -124,30 +131,37 @@ class ClientResource extends Resource
                                 ->columns(3),
                         ]),
                     Wizard\Step::make('representative_details')
-                        ->label(__('representative details (optional)'))
+                        ->visible(session('has_representative'))
+                        ->label(__('representative details'))
                         ->icon('heroicon-o-user')
                         ->schema([
                             Section::make()
                                 ->relationship('representative')
                                 ->schema([
                                     TextInput::make('name')
-                                        ->label(__('name')),
+                                        ->label(__('name'))
+                                        ->required(),
                                     TextInput::make('identity')
                                         ->label(__('identity'))
                                         ->unique(ignoreRecord: true)
                                         ->rules([new Identity])
                                         ->maxLength(9)
-                                        ->minLength(7),
+                                        ->minLength(7)
+                                        ->required(),
                                     TextInput::make('city')
-                                        ->label(__('city')),
+                                        ->label(__('city'))
+                                        ->required(),
                                     TextInput::make('phone')
                                         ->label(__('phone'))
-                                        ->tel(),
+                                        ->tel()
+                                        ->required(),
                                     TextInput::make('email')
                                         ->label(__('email'))
-                                        ->email(),
+                                        ->email()
+                                        ->required(),
                                     TextInput::make('relation')
-                                        ->label(__('relation')),
+                                        ->label(__('relation'))
+                                        ->required(),
                                 ])
                                 ->columns(3),
                         ]),

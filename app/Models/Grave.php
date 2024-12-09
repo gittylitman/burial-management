@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Grave extends Model
 {
-    public function clients(): HasOne
+    public function client(): HasOne
     {
-        return $this->hasOne(Client::class, 'grave_id');
+        return $this->hasOne(Client::class);
     }
 
     protected $fillable = [

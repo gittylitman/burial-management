@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('representatives', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('identity')->nullable();
-            $table->string('city')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('email')->nullable();
-            $table->string('relation')->nullable();
+            $table->string('name');
+            $table->string('identity');
+            $table->string('city');
+            $table->string('phone');
+            $table->string('email');
+            $table->string('relation');
             $table->timestamps();
         });
     }

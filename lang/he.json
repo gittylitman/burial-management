@@ -2,7 +2,7 @@
     "Clients": "לקוחות",
     "Client": "לקוח",
     "client details": "פרטי לקוח",
-    "representative details (optional)": "פרטי נציג (אופציונלי)",
+    "representative details": "פרטי נציג",
     "grave details": "פרטי קבר",
     "identity": "תעודת זהות",
     "name": "שם",
@@ -20,5 +20,6 @@
     "price": "מחיר",
     "email": "אימייל",
     "relation": "קרבה לנפטר",
+    "Submitted by a representative": "מוגש ע”י נציג",
     "The :attribute is invalid.": ":attribute לא חוקי"
 }
