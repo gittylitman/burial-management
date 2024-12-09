@@ -16,6 +16,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Get;
 
 class ClientResource extends Resource
 {
@@ -43,6 +44,12 @@ class ClientResource extends Resource
                         ->schema([
                             Section::make()
                                 ->schema([
+                                    Toggle::make('has_representative')
+                                        ->label(__('Submitted by a representative'))
+                                        ->columnSpanFull()
+                                        ->afterStateUpdated(function (?string $state, ?string $old) {
+                                            session(['has_representative' => $state]);
+                                        }),
                                     TextInput::make('identity')
                                         ->label(__('identity'))
                                         ->unique(ignoreRecord: true)
@@ -105,39 +112,37 @@ class ClientResource extends Resource
                                 ->columns(3),
                         ]),
                     Wizard\Step::make('representative_details')
+                        ->visible(session('has_representative') === true)
                         ->label(__('representative details (optional)'))
                         ->icon('heroicon-o-user')
                         ->schema([
                             Section::make()
                                 ->relationship('representative')
                                 ->schema([
-                                    Toggle::make('has_representative')
-                                        ->label(__('Submitted by a representative'))
-                                        ->columnSpanFull(),
                                     TextInput::make('name')
                                         ->label(__('name'))
-                                        ->requiredIfAccepted('has_representative'),
+                                        ->required(),
                                     TextInput::make('identity')
                                         ->label(__('identity'))
                                         ->unique(ignoreRecord: true)
                                         ->rules([new Identity])
                                         ->maxLength(9)
                                         ->minLength(7)
-                                        ->requiredIfAccepted('has_representative'),
+                                        ->required(),
                                     TextInput::make('city')
                                         ->label(__('city'))
-                                        ->requiredIfAccepted('has_representative'),
+                                        ->required(),
                                     TextInput::make('phone')
                                         ->label(__('phone'))
                                         ->tel()
-                                        ->requiredIfAccepted('has_representative'),
+                                        ->required(),
                                     TextInput::make('email')
                                         ->label(__('email'))
                                         ->email()
-                                        ->requiredIfAccepted('has_representative'),
+                                        ->required(),
                                     TextInput::make('relation')
                                         ->label(__('relation'))
-                                        ->requiredIfAccepted('has_representative'),
+                                        ->required(),
                                 ])
                                 ->columns(3),
                         ]),                        
