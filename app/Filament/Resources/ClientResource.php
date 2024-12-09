@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ClientResource\Pages;
 use App\Models\Client;
 use App\Rules\Identity;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -110,24 +111,33 @@ class ClientResource extends Resource
                             Section::make()
                                 ->relationship('representative')
                                 ->schema([
+                                    Toggle::make('has_representative')
+                                        ->label(__('Submitted by a representative'))
+                                        ->columnSpanFull(),
                                     TextInput::make('name')
-                                        ->label(__('name')),
+                                        ->label(__('name'))
+                                        ->requiredIfAccepted('has_representative'),
                                     TextInput::make('identity')
                                         ->label(__('identity'))
                                         ->unique(ignoreRecord: true)
                                         ->rules([new Identity])
                                         ->maxLength(9)
-                                        ->minLength(7),
+                                        ->minLength(7)
+                                        ->requiredIfAccepted('has_representative'),
                                     TextInput::make('city')
-                                        ->label(__('city')),
+                                        ->label(__('city'))
+                                        ->requiredIfAccepted('has_representative'),
                                     TextInput::make('phone')
                                         ->label(__('phone'))
-                                        ->tel(),
+                                        ->tel()
+                                        ->requiredIfAccepted('has_representative'),
                                     TextInput::make('email')
                                         ->label(__('email'))
-                                        ->email(),
+                                        ->email()
+                                        ->requiredIfAccepted('has_representative'),
                                     TextInput::make('relation')
-                                        ->label(__('relation')),
+                                        ->label(__('relation'))
+                                        ->requiredIfAccepted('has_representative'),
                                 ])
                                 ->columns(3),
                         ]),                        

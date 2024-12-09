@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('death_date')->nullable();
             $table->string('burial_city');
             $table->string('burial_type');
-            $table->foreignId('grave_id')->constrained('graves')->cascadeOnDelete();
-            $table->foreignId('representative_id')->nullable()->constrained('representatives')->cascadeOnDelete();
+            $table->foreignId('grave_id')->nullable();
+            $table->foreignId('representative_id')->nullable();
             $table->timestamps();
         });
     }

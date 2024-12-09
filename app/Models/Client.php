@@ -9,17 +9,15 @@ class Client extends Model
 {
     public function grave(): BelongsTo
     {
-        return $this->belongsTo(Grave::class, 'grave_id');
+        return $this->belongsTo(Grave::class);
     }
     
     public function representative(): BelongsTo
     {
-        return $this->belongsTo(Representative::class, 'representative_id');
+        return $this->belongsTo(Representative::class);
     }
 
     protected $fillable = [
-        'grave_id',
-        'representative_id',
         'identity',
         'name',
         'city',

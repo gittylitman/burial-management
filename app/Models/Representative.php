@@ -9,7 +9,7 @@ class Representative extends Model
 {
     public function clients(): HasMany
     {
-        return $this->hasMany(Client::class, 'representative_id');
+        return $this->hasMany(Client::class);
     }
 
     protected $fillable = [
