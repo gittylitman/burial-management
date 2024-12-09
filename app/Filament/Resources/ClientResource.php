@@ -47,9 +47,9 @@ class ClientResource extends Resource
                                     Toggle::make('has_representative')
                                         ->label(__('Submitted by a representative'))
                                         ->columnSpanFull()
-                                        ->afterStateUpdated(function (?string $state, ?string $old) {
-                                            session(['has_representative' => $state]);
-                                        }),
+                                        ->live()
+                                        ->reactive()
+                                        ->afterStateUpdated(fn ($state) => session(['has_representative' => $state])),
                                     TextInput::make('identity')
                                         ->label(__('identity'))
                                         ->unique(ignoreRecord: true)
@@ -112,8 +112,8 @@ class ClientResource extends Resource
                                 ->columns(3),
                         ]),
                     Wizard\Step::make('representative_details')
-                        ->visible(session('has_representative') === true)
-                        ->label(__('representative details (optional)'))
+                        ->visible(session('has_representative'))
+                        ->label(__('representative details'))
                         ->icon('heroicon-o-user')
                         ->schema([
                             Section::make()
