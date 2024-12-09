@@ -4,20 +4,20 @@ services:
   laravel:
     image: bitnami/laravel
     working_dir: /app
-    container_name: laravel
+    container_name: laravel1
     ports:
       - 8000:8000
     volumes:
       - ./:/app
-      - ./php.ini:/php.ini 
+      - ./php.ini.dev:/php.ini.dev 
     command: bash -c "
-      cat /php.ini >> /opt/bitnami/php/etc/php.ini &&
+      cat /php.ini.dev >> /opt/bitnami/php/etc/php.ini &&
       sleep infinity"
     depends_on:
       - db
     
   db:
-    container_name: postgres
+    container_name: postgres1
     image: postgres
     restart: always
     environment:
