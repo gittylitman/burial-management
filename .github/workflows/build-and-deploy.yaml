@@ -3,7 +3,8 @@ name: ⚙️ Build and deploy to ACR
 on: 
   push:
     branches: 
-      - feature/*
+      # - feature/*
+      - dev
 
 permissions:
   contents: read
