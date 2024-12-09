@@ -11,7 +11,7 @@ class Client extends Model
     {
         return $this->belongsTo(Grave::class);
     }
-    
+
     public function representative(): BelongsTo
     {
         return $this->belongsTo(Representative::class);
@@ -26,7 +26,5 @@ class Client extends Model
         'phone',
         'death_date',
         'burial_city',
-        'burial_type',
-        'cemetery',
     ];
 }

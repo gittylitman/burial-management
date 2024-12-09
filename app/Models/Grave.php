@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Grave extends Model
@@ -15,6 +14,7 @@ class Grave extends Model
 
     protected $fillable = [
         'cemetery',
+        'burial_type',
         'plot',
         'block',
         'city',
