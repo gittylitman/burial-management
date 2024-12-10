@@ -69,7 +69,7 @@ _run() {
   case "${CONTAINER_MODE}" in
     app)
       echo "🚀 Running octane..."
-      ${ARTISAN} octane:frankenphp --host=0.0.0.0 --port="${CONTAINER_PORT}" 
+      ${ARTISAN} serve --host=0.0.0.0 --port="${CONTAINER_PORT}" 
       ;;
     worker)
       echo "⏳ Running the queue..."
