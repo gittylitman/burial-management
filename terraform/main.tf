@@ -29,6 +29,7 @@ resource "azurerm_service_plan" "service_plan" {
   sku_name            = "P1v2"
 }
 
+
 resource "azurerm_linux_web_app" "web_app" {
   name                = var.web_app_name
   resource_group_name = azurerm_resource_group.resource_group.name
