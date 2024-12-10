@@ -19,6 +19,11 @@ class CreateClient extends CreateRecord
         session(['has_representative' => false]);
     }
 
+    protected function getFormActions(): array
+    {
+        return [];
+    }
+
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
