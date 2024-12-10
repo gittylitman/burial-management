@@ -19,7 +19,7 @@ variable resource_group_name {
 
 variable resource_group_location {
   type = string
-  default = "East US"
+  default = "Canada Central"
 }
 
 variable service_plan_name {
