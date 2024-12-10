@@ -20,6 +20,7 @@
     "price": "מחיר",
     "email": "אימייל",
     "relation": "קרבה לנפטר",
+    "create": "יצירה",
     "Submitted by a representative": "מוגש ע”י נציג",
     "The :attribute is invalid.": ":attribute לא חוקי"
 }

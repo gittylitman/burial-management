@@ -19,7 +19,9 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\HtmlString;
 
 class ClientResource extends Resource
 {
@@ -166,7 +168,15 @@ class ClientResource extends Resource
                                 ->columns(3),
                         ]),
                 ])
-                    ->columnSpanFull(),
+                ->columnSpanFull()
+                ->submitAction(new HtmlString(Blade::render(<<<BLADE
+                    <x-filament::button
+                        type="submit"
+                        size="sm"
+                    >
+                        {{ __('create') }}
+                    </x-filament::button>
+                BLADE))),
             ]);
     }
 
