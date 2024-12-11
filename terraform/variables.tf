@@ -4,7 +4,7 @@ variable subscription_id {
 
 variable DOCKER_IMAGE {
   type = string
-  default = "graves:latest"
+  default = "gravetry2:latest"
 }
 
 variable DOCKER_REGISTARY_URL {
