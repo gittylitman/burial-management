@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 class ConnectGov
 {
-    public function connectGov()
+    public function connectGovUrl()
     {
         $url = config('services.gov.url');
         $response = Http::get($url);
@@ -17,7 +17,7 @@ class ConnectGov
 
     public function getCemeteryCities()
     {
-        $filtered_names = $this->connectGov()
+        $filtered_names = $this->connectGovUrl()
             ->filter(function ($item) {
                 return isset($item['SETL_NAME']) && $item['SETL_NAME'] !== null;
             })
@@ -34,7 +34,7 @@ class ConnectGov
 
     public function getCemeteryByCity($city)
     {
-        $filtered_names = $this->connectGov()
+        $filtered_names = $this->connectGovUrl()
             ->filter(function ($record) use ($city) {
                 return $record['SETL_NAME'] === $city;
             })
