@@ -14,7 +14,7 @@ variable DOCKER_REGISTARY_URL {
 
 variable resource_group_name {
   type = string
-  default = "rg-graves2"
+  default = "rg-grave"
 }
 
 variable resource_group_location {
