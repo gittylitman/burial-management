@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ClientResource\Pages;
 use App\Models\Client;
 use App\Rules\Identity;
-use App\Services\ConnectGov;
+use App\Services\ConnectionGov;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -79,7 +79,7 @@ class ClientResource extends Resource
                                         ->reactive()
                                         ->options(
                                             fn () => Cache::remember('burial_city', 45 * 60, function () {
-                                                return app(ConnectGov::class)->getCemeteryCities();
+                                                return app(ConnectionGov::class)->getCemeteryCities();
                                             })
                                         )
                                         ->required()
@@ -101,7 +101,7 @@ class ClientResource extends Resource
                                         ->live()
                                         ->reactive()
                                         ->options(
-                                            fn () => (app(ConnectGov::class)->getCemeteryByCity(session('burial_city'))) ?? []
+                                            fn () => (app(ConnectionGov::class)->getCemeteryByCity(session('burial_city'))) ?? []
                                         )
                                         ->required(),
                                     TextInput::make('burial_type')
