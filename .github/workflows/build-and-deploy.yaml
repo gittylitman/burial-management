@@ -38,7 +38,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.WORKING_DIR }}
+          images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/grave2
           flavor: |
             latest=false
           tags: |
