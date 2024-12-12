@@ -16,15 +16,6 @@ COPY --chown=${user}:${user} /artisan artisan
 COPY .env.example .env
 COPY /php.ini "${PHP_INI_DIR}/php.ini"
 
-
-# --- NETFREE CERT INTSALL ---
-ADD https://netfree.link/dl/unix-ca.sh /home/netfree-unix-ca.sh
-RUN cat  /home/netfree-unix-ca.sh | sh
-ENV NODE_EXTRA_CA_CERTS=/etc/ca-bundle.crt
-ENV REQUESTS_CA_BUNDLE=/etc/ca-bundle.crt
-ENV SSL_CERT_FILE=/etc/ca-bundle.crt
-# --- END NETFREE CERT INTSALL ---
-
 RUN apt-get update \
   && apt-get satisfy -y --no-install-recommends \
     "curl (>=7.88)" \

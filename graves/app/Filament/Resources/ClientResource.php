@@ -79,7 +79,21 @@ class ClientResource extends Resource
                                         ->reactive()
                                         ->options(
                                             fn () => Cache::remember('burial_city', 45 * 60, function () {
-                                                return app(ConnectionGov::class)->getCemeteryCities();
+                                                // return app(ConnectionGov::class)->getCemeteryCities();
+                                                $json_data = file_get_contents("./cemetery.json")
+                                                $cemeteries = json_decode($json_data, true);
+                                                $cemeteries = $cemeteries ->filter(function ($item) {
+                                                    return isset($item['SETL_NAME']) && $item['SETL_NAME'] !== null;
+                                                })
+                                                ->map(function ($item) {
+                                                    return [$item['SETL_NAME'] => $item['SETL_NAME']];
+                                                })
+                                                ->unique()
+                                                ->values()
+                                                ->collapse()
+                                                ->all();
+
+                                                return $cemeteries;
                                             })
                                         )
                                         ->required()
