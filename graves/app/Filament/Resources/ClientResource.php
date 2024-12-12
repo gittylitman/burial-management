@@ -77,22 +77,20 @@ class ClientResource extends Resource
                                         ->label(__('burial city'))
                                         ->live()
                                         ->reactive()
-                                        ->options(
-                                            fn () => Cache::remember('burial_city', 45 * 60, function () {
-                                                // return app(ConnectionGov::class)->getCemeteryCities();
-                                                $json_data = file_get_contents("./cemetery.json");
-                                                return json_decode($json_data, true)->filter(function ($item) {
-                                                    return isset($item['SETL_NAME']) && $item['SETL_NAME'] !== null;
-                                                })
-                                                ->map(function ($item) {
-                                                    return [$item['SETL_NAME'] => $item['SETL_NAME']];
-                                                })
-                                                ->unique()
-                                                ->values()
-                                                ->collapse()
-                                                ->all();
+                                        ->options(function () {
+                                            $url = config('services.gov.url');
+                                            $response = Http::get($url)->json();
+                                            return collect($response['result']['records'])->filter(function ($item) {
+                                                return isset($item['SETL_NAME']) && $item['SETL_NAME'] !== null;
                                             })
-                                        )
+                                            ->map(function ($item) {
+                                                return [$item['SETL_NAME'] => $item['SETL_NAME']];
+                                            })
+                                            ->unique()
+                                            ->values()
+                                            ->collapse()
+                                            ->all();
+                                        })
                                         ->required()
                                         ->afterStateUpdated(function (Get $get) {
                                             session(['burial_city' => $get('burial_city')]);
@@ -111,9 +109,22 @@ class ClientResource extends Resource
                                         ->label(__('cemetery'))
                                         ->live()
                                         ->reactive()
-                                        ->options(
-                                            fn () => (app(ConnectionGov::class)->getCemeteryByCity(session('burial_city'))) ?? []
-                                        )
+                                        // ->options(
+                                        //     fn () => (app(ConnectionGov::class)->getCemeteryByCity(session('burial_city'))) ?? []
+                                        // )
+                                        ->options(function () {
+                                            $url = config('services.gov.url');
+                                            $response = Http::get($url)->json();
+                                            return collect($response['result']['records'])  ->filter(function ($record){
+                                                return $record['SETL_NAME'] === session('burial_city');
+                                            })
+                                            ->map(function ($item) {
+                                                return [$item['NAME'] => $item['NAME']];
+                                            })
+                                            ->values()
+                                            ->collapse()
+                                            ->all();
+                                        })
                                         ->required(),
                                     TextInput::make('burial_type')
                                         ->label(__('burial type'))
