@@ -20,7 +20,7 @@ variable DOCKER_REGISTARY_URL {
 
 variable resource_group_name {
   type = string
-  default = "rg-grave"
+  default = "rg-grave-new"
 }
 
 variable resource_group_location {
@@ -30,17 +30,17 @@ variable resource_group_location {
 
 variable service_plan_name {
   type = string
-  default = "app-graves"
+  default = "app-graves-new"
 }
 
 variable web_app_name {
   type = string
-  default = "wa-graves"
+  default = "wa-graves-new"
 }
 
 variable server_name {
   type = string
-  default = "sqldb-graves"
+  default = "sqldb-graves-new"
 }
 
 variable server_version {
@@ -75,7 +75,7 @@ variable acr_resource_group_name {
 
 variable firwall_name {
   type = string
-  default = "fw-db-graves"
+  default = "fw-db-graves-new"
 }
 
 variable END_IP_ADDRESS {
