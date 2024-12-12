@@ -7,6 +7,12 @@ variable DOCKER_IMAGE {
   default = "gravetry2:latest"
 }
 
+variable gov_url_cemetery_cities {
+  type = string
+  default = "https://data.gov.il/api/3/action/datastore_search?resource_id=23ef02e8-ac18-4568-8d94-2fb17040a9ae"
+}
+
+
 variable DOCKER_REGISTARY_URL {
   type = string
   default = "https://skyvaracr.azurecr.io"

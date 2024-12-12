@@ -52,6 +52,7 @@ resource "azurerm_linux_web_app" "web_app" {
     WEBSITES_ENABLE_APP_SERVICE_STORAGE = true
     WEBSITES_CONTAINER_START_TIME_LIMIT= 1700
     PORT = 8000
+    GOV_URL_CEMETARY_CITIES=var.gov_url_cemetery_cities
   }
 
   site_config {
