@@ -17,7 +17,7 @@ class ConnectionGov
 
     public function getCemeteryCities()
     {
-        $filtered_names = $this->connectGovUrl()
+        return $this->connectGovUrl()
             ->filter(function ($item) {
                 return isset($item['SETL_NAME']) && $item['SETL_NAME'] !== null;
             })
@@ -28,13 +28,11 @@ class ConnectionGov
             ->values()
             ->collapse()
             ->all();
-
-        return $filtered_names;
     }
 
     public function getCemeteryByCity($city)
     {
-        $filtered_names = $this->connectGovUrl()
+        return $this->connectGovUrl()
             ->filter(function ($record) use ($city) {
                 return $record['SETL_NAME'] === $city;
             })
@@ -44,7 +42,18 @@ class ConnectionGov
             ->values()
             ->collapse()
             ->all();
+    }
 
-        return $filtered_names;
+    public function getCemeteryCoordinates($city, $cemetary_city)
+    {
+        $ORD = $this->connectGovUrl()
+            ->where('SETL_NAME', $city)
+            ->where('NAME', $cemetary_city)
+            ->map(function ($item) {
+                return ['E_ORD' => $item['E_ORD'], 'N_ORD' => $item['N_ORD']];
+            })
+            ->all();
+        dump('https://www.google.com/maps/search/?api=1&query=' . $ORD['N_ORD'] . ',' . $ORD['E_ORD']);
+        return 'https://www.google.com/maps/search/?api=1&query=' . $ORD['N_ORD'] . ',' . $ORD['E_ORD'];
     }
 }

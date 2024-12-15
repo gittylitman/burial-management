@@ -20,5 +20,6 @@
     "price": "מחיר",
     "email": "אימייל",
     "relation": "קרבה לנפטר",
-    "The :attribute is invalid.": ":attribute לא חוקי"
+    "The :attribute is invalid.": ":attribute לא חוקי",
+    "Cemetery url": "ניתוב לתמונת בית הקברות"
 }

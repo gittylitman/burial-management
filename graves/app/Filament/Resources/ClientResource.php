@@ -6,6 +6,7 @@ use App\Filament\Resources\ClientResource\Pages;
 use App\Models\Client;
 use App\Rules\Identity;
 // use App\Services\ConnectionGov;
+use App\Tables\Columns\cemeteryUrl;
 use Illuminate\Support\Facades\Http;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
@@ -126,6 +127,9 @@ class ClientResource extends Resource
                                             ->collapse()
                                             ->all();
                                         })
+                                        ->afterStateUpdated(function (Get $get) {
+                                            session(['cemetery' => $get('cemetery')]);
+                                        })
                                         ->required(),
                                     TextInput::make('burial_type')
                                         ->label(__('burial type'))
@@ -206,13 +210,27 @@ class ClientResource extends Resource
                     ->label(__('cemetery'))
                     ->searchable()
                     ->sortable(),
+                cemeteryUrl::make(name: 'cemetery_url')
+                    ->label(__('Cemetery url')),
             ])
             ->filters([
                 SelectFilter::make('grave.cemetery')
                     ->label(__('cemetery'))
                     ->multiple()
-                    //TODO get it from API
-                    ->options([]),
+                    ->options(function () {
+                        $url = config('services.gov.url');
+                        $response = Http::get($url)->json();
+                        return collect($response['result']['records'])->filter(function ($item) {
+                            return isset($item['SETL_NAME']) && $item['SETL_NAME'] !== null;
+                        })
+                        ->map(function ($item) {
+                            return [$item['SETL_NAME'] => $item['SETL_NAME']];
+                        })
+                        ->unique()
+                        ->values()
+                        ->collapse()
+                        ->all();
+                    })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

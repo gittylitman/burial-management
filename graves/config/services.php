@@ -37,5 +37,6 @@ return [
 
     'gov' => [
         'url' => env('GOV_URL_CEMETARY_CITIES'),
+        'url_maps' => env('URL_MAPS_CEMETERIES')
     ],
 ];
